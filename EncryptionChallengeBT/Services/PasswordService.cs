@@ -12,9 +12,9 @@ namespace EncryptionChallengeBT.Services
             _memoryCache = memoryCache;
         }
 
-        public bool CheckPassword(string password, string user)
+        public bool PasswordIsValid(string password, string userId)
         {
-            if(_memoryCache.Get(password) as string == user)
+            if(_memoryCache.Get(password) as string == userId)
             {
                 return true;
             }
@@ -30,13 +30,13 @@ namespace EncryptionChallengeBT.Services
             return BitConverter.ToString(hashedBytes);
         }
 
-        public string CreatePassword(string user)
+        public string CreatePassword(string userId)
         {
             using (SHA256 mySHA256 = SHA256.Create())
             {
-                string hPassword = ComputeHash(user, mySHA256);
+                string hPassword = ComputeHash(userId, mySHA256);
 
-                _memoryCache.Set(user, hPassword, TimeSpan.FromSeconds(30));
+                _memoryCache.Set(userId, hPassword, TimeSpan.FromSeconds(30));
 
                 return hPassword;
 

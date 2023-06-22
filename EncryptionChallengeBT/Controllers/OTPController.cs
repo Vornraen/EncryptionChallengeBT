@@ -16,11 +16,11 @@ namespace EncryptionChallengeBT.Controllers
         }
 
         [HttpGet(Name = "GetOTP")]
-        public ActionResult<string> GetOTP(string userid)
+        public ActionResult<string> GetOTP(string userId)
         {
             try
             {
-                var hashedPassword = _passwordService.CreatePassword(userid);
+                var hashedPassword = _passwordService.CreatePassword(userId);
                 return Ok(hashedPassword);
             }
             catch (Exception ex)
@@ -30,11 +30,11 @@ namespace EncryptionChallengeBT.Controllers
         }
 
         [HttpPost(Name = "CheckOTP")]
-        public ActionResult<string> CheckPassword(string hash, string userid)
+        public ActionResult<string> CheckPassword(string hash, string userId)
         {
             try
             {
-                if (_passwordService.CheckPassword(userid, hash) == true)
+                if (_passwordService.PasswordIsValid(userId, hash))
                     return Ok("Accesul este permis");
                 return Unauthorized("Acces interzis");
             }

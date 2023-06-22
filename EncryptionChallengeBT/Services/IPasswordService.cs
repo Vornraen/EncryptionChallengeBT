@@ -4,8 +4,8 @@ namespace EncryptionChallengeBT.Services
 {
     public interface IPasswordService
     {
-        string CreatePassword(string userid);
-        bool CheckPassword(string password, string userid);
+        string CreatePassword(string userId);
+        bool PasswordIsValid(string password, string userId);
         string ComputeHash(string input, HashAlgorithm hashAlgorithm);
 
     }
